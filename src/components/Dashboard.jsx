@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import api from "../services/api";
 import { logoutUser } from "../services/auth";
-import mongoose from "mongoose";
 
 function Dashboard() {
   const { user, logout } = useContext(UserContext);
@@ -46,7 +45,7 @@ function Dashboard() {
     setSending(true);
     try {
       const res = await api.post("/chat/send", {
-        receiverId: mongoose.Types.ObjectId(newChatId),
+        receiverId: newChatId,
         firstMsg: newChatMsg,
       });
       setShowModal(false);
