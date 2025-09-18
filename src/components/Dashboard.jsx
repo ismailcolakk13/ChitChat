@@ -46,7 +46,7 @@ function Dashboard() {
     try {
       const res = await api.post("/chat/send", {
         receiverId: newChatId,
-        firstMsg: newChatMsg,
+        text: newChatMsg,
       });
       setShowModal(false);
       setNewChatId("");
