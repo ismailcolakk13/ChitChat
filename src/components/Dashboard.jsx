@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import api from "../services/api";
 import { logoutUser } from "../services/auth";
-
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 
 function Dashboard() {
   const { user, logout } = useContext(UserContext);
