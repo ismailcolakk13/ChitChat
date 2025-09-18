@@ -28,7 +28,7 @@ function ChatRoom() {
     const fetchOldMessages = async () => {
       setLoading(true);
       try {
-        const res = await api.get(`/chat/room/${roomId}`);
+        const res = await api.get(`/chat/room/${roomId.toString()}/messages`);
         setMessages(res.data);
       } finally {
         setLoading(false);
@@ -50,7 +50,7 @@ function ChatRoom() {
       () => {
         console.log("WS bağlandı");
 
-        stomp.subscribe(`/topic/rooms/${roomId}`, (msg) => {
+        stomp.subscribe(`/topic/rooms/${roomId.toString()}`, (msg) => {
           const messageBody = JSON.parse(msg.body);
           console.log("Yeni mesaj: ", messageBody);
 
@@ -88,7 +88,7 @@ function ChatRoom() {
         text: inputText,
       };
       stompClient.current.send(
-        `/app/chat.send/${roomId}`,
+        `/app/chat.send/${roomId.toString()}`,
         {},
         JSON.stringify(chatMessage)
       );

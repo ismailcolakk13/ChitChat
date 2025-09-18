@@ -5,6 +5,9 @@ import { UserContext } from "../context/UserContext";
 import api from "../services/api";
 import { logoutUser } from "../services/auth";
 
+const mongoose = require("mongoose");
+
+
 function Dashboard() {
   const { user, logout } = useContext(UserContext);
   const [rooms, setRooms] = useState([]);
@@ -45,13 +48,13 @@ function Dashboard() {
     setSending(true);
     try {
       const res = await api.post("/chat/send", {
-        receiverId: newChatId,
+        receiverId: mongoose.Types.ObjectId(newChatId),
         firstMsg: newChatMsg,
       });
       setShowModal(false);
       setNewChatId("");
       setNewChatMsg("");
-      navigate(`/chat/${res.data.roomId}`);
+      navigate(`/chat/${res.data.roomId.toString()}`);
     } catch (error) {
       alert("Sohbet başlatılamadı!");
     } finally {
@@ -65,7 +68,7 @@ function Dashboard() {
   };
 
   const goToRoom = (roomId, guest) => {
-    navigate(`/chat/${roomId}`, { state: { guest: guest } });
+    navigate(`/chat/${roomId.toString()}`, { state: { guest: guest } });
   };
 
   return (
