@@ -37,7 +37,7 @@ function ChatRoom() {
 
     fetchOldMessages();
 
-    const socket = new SockJS("https://chitchat-qe8b.onrender.com/api");
+    const socket = new SockJS("https://chitchat-qe8b.onrender.com/ws-chat");
     const stomp = over(socket);
     stompClient.current = stomp;
 
