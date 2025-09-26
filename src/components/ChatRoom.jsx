@@ -24,12 +24,12 @@ function ChatRoom() {
       // Skip the WebSocket setup if roomId/userId is missing or if already connected
       return;
     }
-
     const fetchOldMessages = async () => {
       setLoading(true);
       try {
-        const res = await api.get(`/chat/room/${roomId.toString()}/messages`);
+        const res = await api.get(`/chat/room/${roomId}`);
         setMessages(res.data);
+        console.log(res.data);
       } finally {
         setLoading(false);
       }
@@ -37,7 +37,7 @@ function ChatRoom() {
 
     fetchOldMessages();
 
-    const socket = new SockJS("https://chitchat-qe8b.onrender.com/ws-chat");
+    const socket = new SockJS("http://localhost:8080/ws-chat");
     const stomp = over(socket);
     stompClient.current = stomp;
 
@@ -50,7 +50,7 @@ function ChatRoom() {
       () => {
         console.log("WS bağlandı");
 
-        stomp.subscribe(`/topic/rooms/${roomId.toString()}`, (msg) => {
+        stomp.subscribe(`/topic/rooms/${roomId}`, (msg) => {
           const messageBody = JSON.parse(msg.body);
           console.log("Yeni mesaj: ", messageBody);
 
@@ -83,12 +83,14 @@ function ChatRoom() {
       stompClient.current.connected &&
       inputText.trim() !== ""
     ) {
+      console.log("Mesaj gönderiliyor: ", state.guest);
       const chatMessage = {
         senderId: user.id,
         text: inputText,
+        receiverId: state?.guest?.id || "unknown",
       };
       stompClient.current.send(
-        `/app/chat.send/${roomId.toString()}`,
+        `/app/chat.send/${roomId}`,
         {},
         JSON.stringify(chatMessage)
       );
