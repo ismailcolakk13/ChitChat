@@ -53,3 +53,4 @@ sertifika/
 # --- Diğer ---
 expressions.txt
 temp/
+docker-compose.yml
