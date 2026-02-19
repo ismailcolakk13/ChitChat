@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
 import { UserContext } from "../context/UserContext";
-import api from "../services/api";
+import api, { apiURL } from "../services/api";
 
 function ChatRoom() {
   const { roomId } = useParams();
@@ -37,7 +37,7 @@ function ChatRoom() {
 
     fetchOldMessages();
 
-    const socket = new SockJS("https://chitchat-qe8b.onrender.com/ws-chat");
+    const socket = new SockJS(apiURL+"/ws-chat");
     const stomp = over(socket);
     stompClient.current = stomp;
 

@@ -1,8 +1,10 @@
 import axios from "axios";
 
+export const apiURL = import.meta.env.VITE_API_URL;
+
 const api = axios.create({
-  baseURL: "https://chitchat-qe8b.onrender.com/api",
-  //baseURL: "http://localhost:8080/api",
+  // baseURL: "https://chitchat-qe8b.onrender.com/api",
+  baseURL: apiURL+"/api",
 });
 
 api.interceptors.request.use((config) => {
@@ -14,3 +16,4 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
+  
