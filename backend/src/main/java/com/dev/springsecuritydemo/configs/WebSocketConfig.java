@@ -1,7 +1,5 @@
 package com.dev.springsecuritydemo.configs;
 
-
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -31,22 +29,21 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Value("${url.frontend-2}")
     private String frontend_2;
 
-
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic"); //Subscribe prefix
-        registry.setApplicationDestinationPrefixes("/app");//@MessageMapping gelen mesajlar prefix
+        registry.enableSimpleBroker("/topic"); // Subscribe prefix
+        registry.setApplicationDestinationPrefixes("/app");// @MessageMapping gelen mesajlar prefix
 
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        //JS bağlanacağı URL
-        registry.addEndpoint("/ws-chat").setAllowedOriginPatterns(String.join(",", frontend_1, frontend_2)).withSockJS();
+        // JS bağlanacağı URL
+        registry.addEndpoint("/ws-chat").setAllowedOriginPatterns(String.join(",", frontend_1, frontend_2))
+                .withSockJS();
     }
 
     @Override
@@ -66,19 +63,22 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                             if (username != null) {
                                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                                 if (jwtService.isTokenValid(token, userDetails)) {
-                                    UsernamePasswordAuthenticationToken authenticationToken =
-                                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                                            userDetails, null, userDetails.getAuthorities());
                                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                                     accessor.setUser(authenticationToken);
                                 } else {
-                                    throw new org.springframework.messaging.MessageDeliveryException("JWT token is invalid");
+                                    throw new org.springframework.messaging.MessageDeliveryException(
+                                            "JWT token is invalid");
                                 }
                             }
                         } catch (Exception e) {
-                            throw new org.springframework.messaging.MessageDeliveryException("Exception during JWT processing: " + e.getMessage());
+                            throw new org.springframework.messaging.MessageDeliveryException(
+                                    "Exception during JWT processing: " + e.getMessage());
                         }
                     } else {
-                        throw new org.springframework.messaging.MessageDeliveryException("No valid Authorization header found for WebSocket connection");
+                        throw new org.springframework.messaging.MessageDeliveryException(
+                                "No valid Authorization header found for WebSocket connection");
                     }
                 }
                 return message;

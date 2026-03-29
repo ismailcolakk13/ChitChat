@@ -1,4 +1,5 @@
 package com.dev.springsecuritydemo.services;
+
 import com.dev.springsecuritydemo.entities.ChatRoom;
 import com.dev.springsecuritydemo.repositories.ChatRoomRepository;
 
@@ -20,8 +21,8 @@ public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
     private final MyUserRepository myUserRepository;
 
-    public boolean hasTheyChatRoom(Integer senderId,Integer receiverId){
-        ChatRoom chatRoom = chatRoomRepository.findChatRoomByUsers(senderId,receiverId);
+    public boolean hasTheyChatRoom(Integer senderId, Integer receiverId) {
+        ChatRoom chatRoom = chatRoomRepository.findChatRoomByUsers(senderId, receiverId);
         return chatRoom != null;
     }
 
@@ -31,14 +32,14 @@ public class ChatRoomService {
 
     public ChatRoom createOrGetChatRoom(Integer senderId, Integer receiverId) {
         ChatRoom existingRoom = chatRoomRepository.findChatRoomByUsers(senderId, receiverId);
-        if(existingRoom != null){
+        if (existingRoom != null) {
             return existingRoom;
         }
         ChatRoom chatRoom = ChatRoom.builder()
                 .users(List.of(
                         myUserRepository.findById(senderId).orElseThrow(() -> new RuntimeException("Sender not found")),
-                        myUserRepository.findById(receiverId).orElseThrow(() -> new RuntimeException("Receiver not found"))
-                ))
+                        myUserRepository.findById(receiverId)
+                                .orElseThrow(() -> new RuntimeException("Receiver not found"))))
                 .build();
         chatRoomRepository.save(chatRoom);
         return chatRoom;
@@ -47,7 +48,8 @@ public class ChatRoomService {
     public List<ChatRoom> getUsersChatRooms() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        MyUser currentUser = myUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        MyUser currentUser = myUserRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         return chatRoomRepository.findByUsers_Id(currentUser.getId());
     }
@@ -55,9 +57,11 @@ public class ChatRoomService {
     public List<Message> getMessagesByChatRoom(Integer roomId) throws AccessDeniedException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        MyUser currentUser = myUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        MyUser currentUser = myUserRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
+        ChatRoom chatRoom = chatRoomRepository.findById(roomId)
+                .orElseThrow(() -> new RuntimeException("Room not found"));
 
         boolean isMember = chatRoom.getUsers().stream().anyMatch(user -> user.getId().equals(currentUser.getId()));
         if (!isMember) {
