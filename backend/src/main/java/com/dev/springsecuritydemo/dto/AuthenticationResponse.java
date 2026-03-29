@@ -1,6 +1,6 @@
-package com.dev.springsecuritydemo.models.auth;
+package com.dev.springsecuritydemo.dto;
 
-import com.dev.springsecuritydemo.models.myUser.MyUserDTO;
+import com.dev.springsecuritydemo.dto.MyUserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,14 +1,16 @@
-package com.dev.springsecuritydemo.models.chatRoom;
+package com.dev.springsecuritydemo.mappers;
+import com.dev.springsecuritydemo.entities.ChatRoom;
+import com.dev.springsecuritydemo.dto.ChatRoomDTO;
 
-import com.dev.springsecuritydemo.models.message.MessageDTO;
-import com.dev.springsecuritydemo.models.message.MessageMapper;
-import com.dev.springsecuritydemo.models.message.MessageRepository;
-import com.dev.springsecuritydemo.models.myUser.MyUserMapper;
+import com.dev.springsecuritydemo.dto.MessageDTO;
+import com.dev.springsecuritydemo.mappers.MessageMapper;
+import com.dev.springsecuritydemo.repositories.MessageRepository;
+import com.dev.springsecuritydemo.mappers.MyUserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Component
 @RequiredArgsConstructor
@@ -35,6 +37,6 @@ public class ChatRoomMapper {
     }
 
     public List<ChatRoomDTO> toDTOList(List<ChatRoom> chatRooms) {
-        return chatRooms.stream().map(this::toDTO).collect(Collectors.toList());
+        return chatRooms.stream().map(this::toDTO).toList();
     }
 }

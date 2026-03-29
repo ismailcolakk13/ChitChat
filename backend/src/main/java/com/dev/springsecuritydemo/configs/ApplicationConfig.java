@@ -1,6 +1,6 @@
 package com.dev.springsecuritydemo.configs;
 
-import com.dev.springsecuritydemo.models.myUser.MyUserRepository;
+import com.dev.springsecuritydemo.repositories.MyUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

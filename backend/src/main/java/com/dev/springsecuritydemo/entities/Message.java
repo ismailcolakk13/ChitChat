@@ -1,6 +1,6 @@
-package com.dev.springsecuritydemo.models.message;
+package com.dev.springsecuritydemo.entities;
 
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoom;
+import com.dev.springsecuritydemo.entities.ChatRoom;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

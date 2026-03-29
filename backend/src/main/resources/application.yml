@@ -1,6 +1,6 @@
 spring:
   application:
-    name: springSecurityDemo
+    name: chitchat-backend
   config:
     import: "optional:file:.env[.properties]"
   datasource:
@@ -12,7 +12,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
 
 jwt:
   secret: ${JWT_SECRET}
@@ -20,10 +20,9 @@ jwt:
 url:
   frontend-1: ${FRONTEND_URL_1}
   frontend-2: ${FRONTEND_URL_2}
-  test: ${TEST_URL}
 
 logging:
   level:
     org:
       springframework:
-        security: DEBUG
+        security: WARN

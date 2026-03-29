@@ -1,4 +1,5 @@
-package com.dev.springsecuritydemo.models.message;
+package com.dev.springsecuritydemo.repositories;
+import com.dev.springsecuritydemo.entities.Message;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

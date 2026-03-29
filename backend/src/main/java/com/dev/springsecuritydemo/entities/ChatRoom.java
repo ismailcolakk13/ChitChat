@@ -1,7 +1,7 @@
-package com.dev.springsecuritydemo.models.chatRoom;
+package com.dev.springsecuritydemo.entities;
 
-import com.dev.springsecuritydemo.models.message.Message;
-import com.dev.springsecuritydemo.models.myUser.MyUser;
+import com.dev.springsecuritydemo.entities.Message;
+import com.dev.springsecuritydemo.entities.MyUser;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,6 +27,6 @@ public class ChatRoom {
     @JsonIgnoreProperties("chatRooms")
     private List<MyUser> users;
 
-    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Message> messages;
 }

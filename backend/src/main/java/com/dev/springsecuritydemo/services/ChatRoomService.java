@@ -1,8 +1,10 @@
-package com.dev.springsecuritydemo.models.chatRoom;
+package com.dev.springsecuritydemo.services;
+import com.dev.springsecuritydemo.entities.ChatRoom;
+import com.dev.springsecuritydemo.repositories.ChatRoomRepository;
 
-import com.dev.springsecuritydemo.models.message.Message;
-import com.dev.springsecuritydemo.models.myUser.MyUser;
-import com.dev.springsecuritydemo.models.myUser.MyUserRepository;
+import com.dev.springsecuritydemo.entities.Message;
+import com.dev.springsecuritydemo.entities.MyUser;
+import com.dev.springsecuritydemo.repositories.MyUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,8 +30,9 @@ public class ChatRoomService {
     }
 
     public ChatRoom createOrGetChatRoom(Integer senderId, Integer receiverId) {
-        if(hasTheyChatRoom(senderId,receiverId)){
-            return chatRoomRepository.findChatRoomByUsers(senderId,receiverId);
+        ChatRoom existingRoom = chatRoomRepository.findChatRoomByUsers(senderId, receiverId);
+        if(existingRoom != null){
+            return existingRoom;
         }
         ChatRoom chatRoom = ChatRoom.builder()
                 .users(List.of(

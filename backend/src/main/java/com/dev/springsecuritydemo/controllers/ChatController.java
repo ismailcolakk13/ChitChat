@@ -1,13 +1,13 @@
 package com.dev.springsecuritydemo.controllers;
 
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoom;
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoomDTO;
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoomMapper;
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoomService;
-import com.dev.springsecuritydemo.models.message.Message;
-import com.dev.springsecuritydemo.models.message.MessageDTO;
-import com.dev.springsecuritydemo.models.message.MessageMapper;
-import com.dev.springsecuritydemo.models.message.MessageService;
+import com.dev.springsecuritydemo.entities.ChatRoom;
+import com.dev.springsecuritydemo.dto.ChatRoomDTO;
+import com.dev.springsecuritydemo.mappers.ChatRoomMapper;
+import com.dev.springsecuritydemo.services.ChatRoomService;
+import com.dev.springsecuritydemo.entities.Message;
+import com.dev.springsecuritydemo.dto.MessageDTO;
+import com.dev.springsecuritydemo.mappers.MessageMapper;
+import com.dev.springsecuritydemo.services.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

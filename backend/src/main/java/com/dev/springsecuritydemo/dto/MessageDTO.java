@@ -1,4 +1,4 @@
-package com.dev.springsecuritydemo.models.message;
+package com.dev.springsecuritydemo.dto;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,5 @@
-package com.dev.springsecuritydemo.models.chatRoom;
+package com.dev.springsecuritydemo.repositories;
+import com.dev.springsecuritydemo.entities.ChatRoom;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

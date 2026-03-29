@@ -1,8 +1,12 @@
-package com.dev.springsecuritydemo.models.auth;
+package com.dev.springsecuritydemo.services;
+import com.dev.springsecuritydemo.dto.AuthenticationResponse;
+import com.dev.springsecuritydemo.dto.AuthenticationRequest;
+import com.dev.springsecuritydemo.dto.RegisterRequest;
+import com.dev.springsecuritydemo.entities.Role;
 
-import com.dev.springsecuritydemo.models.myUser.MyUser;
-import com.dev.springsecuritydemo.models.myUser.MyUserMapper;
-import com.dev.springsecuritydemo.models.myUser.MyUserRepository;
+import com.dev.springsecuritydemo.entities.MyUser;
+import com.dev.springsecuritydemo.mappers.MyUserMapper;
+import com.dev.springsecuritydemo.repositories.MyUserRepository;
 import com.dev.springsecuritydemo.configs.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +31,7 @@ public class AuthenticationService {
         var user = MyUser.builder()
                 .username(request.getUsername())
                 .age(request.getAge())
-                .role(request.getRole())
+                .role(com.dev.springsecuritydemo.entities.Role.USER)
                 .password(encoder.encode(request.getPassword()))
                 .build();
 

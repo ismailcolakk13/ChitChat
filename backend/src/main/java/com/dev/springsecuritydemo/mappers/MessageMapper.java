@@ -1,9 +1,11 @@
-package com.dev.springsecuritydemo.models.message;
+package com.dev.springsecuritydemo.mappers;
+import com.dev.springsecuritydemo.entities.Message;
+import com.dev.springsecuritydemo.dto.MessageDTO;
 
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Component
 public class MessageMapper {
@@ -22,7 +24,7 @@ public class MessageMapper {
     public List<MessageDTO> toDTOList(List<Message> messages) {
         return messages.stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
 

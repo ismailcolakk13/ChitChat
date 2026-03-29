@@ -1,11 +1,15 @@
-package com.dev.springsecuritydemo.models.message;
+package com.dev.springsecuritydemo.services;
+import com.dev.springsecuritydemo.mappers.MessageMapper;
+import com.dev.springsecuritydemo.entities.Message;
+import com.dev.springsecuritydemo.repositories.MessageRepository;
+import com.dev.springsecuritydemo.dto.MessageDTO;
 
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoom;
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoomDTO;
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoomMapper;
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoomService;
-import com.dev.springsecuritydemo.models.myUser.MyUser;
-import com.dev.springsecuritydemo.models.myUser.MyUserRepository;
+import com.dev.springsecuritydemo.entities.ChatRoom;
+import com.dev.springsecuritydemo.dto.ChatRoomDTO;
+import com.dev.springsecuritydemo.mappers.ChatRoomMapper;
+import com.dev.springsecuritydemo.services.ChatRoomService;
+import com.dev.springsecuritydemo.entities.MyUser;
+import com.dev.springsecuritydemo.repositories.MyUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.AccessDeniedException;
@@ -59,12 +63,12 @@ public class MessageService {
         return chatRoomMapper.toDTO(chatRoom);
     }
 
-    public void sendMessageToRoom(Integer roomId, Integer senderId, String text) {
-
+    public void sendMessageToRoom(Integer roomId, String username, String text) {
+        MyUser sender = myUserRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
         ChatRoom chatRoom = chatRoomService.getChatRoomById(roomId);
 
         Message message = Message.builder()
-                .senderId(senderId)
+                .senderId(sender.getId())
                 .text(text)
                 .chatRoom(chatRoom)
                 .date(LocalDateTime.now())
@@ -88,8 +92,7 @@ public class MessageService {
             throw new AccessDeniedException("You can't update this message");
         }
         message.setText(newText);
-        message.setDate(LocalDateTime.now());
-        message.setIsRead(false);
+
         messageRepository.save(message);
     }
 

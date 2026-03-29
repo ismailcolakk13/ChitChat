@@ -1,8 +1,8 @@
 package com.dev.springsecuritydemo.controllers;
 
-import com.dev.springsecuritydemo.models.myUser.MyUser;
-import com.dev.springsecuritydemo.models.myUser.MyUserDTO;
-import com.dev.springsecuritydemo.models.myUser.MyUserMapper;
+import com.dev.springsecuritydemo.entities.MyUser;
+import com.dev.springsecuritydemo.dto.MyUserDTO;
+import com.dev.springsecuritydemo.mappers.MyUserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

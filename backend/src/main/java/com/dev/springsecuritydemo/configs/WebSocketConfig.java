@@ -1,6 +1,7 @@
 package com.dev.springsecuritydemo.configs;
 
 
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +30,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private String frontend_1;
     @Value("${url.frontend-2}")
     private String frontend_2;
-    @Value("${url.test}")
-    private String test;
+
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
@@ -46,7 +46,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         //JS bağlanacağı URL
-        registry.addEndpoint("/ws-chat").setAllowedOriginPatterns(String.join(",", frontend_1, frontend_2, test)).withSockJS();
+        registry.addEndpoint("/ws-chat").setAllowedOriginPatterns(String.join(",", frontend_1, frontend_2)).withSockJS();
     }
 
     @Override
@@ -71,16 +71,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                                     accessor.setUser(authenticationToken);
                                 } else {
-                                    // Token invalid - could throw an exception or reject connection here
-                                    System.out.println("JWT token is invalid");
+                                    throw new org.springframework.messaging.MessageDeliveryException("JWT token is invalid");
                                 }
                             }
                         } catch (Exception e) {
-                            System.out.println("Exception during JWT processing: " + e.getMessage());
-                            // Optionally close connection or ignore auth
+                            throw new org.springframework.messaging.MessageDeliveryException("Exception during JWT processing: " + e.getMessage());
                         }
                     } else {
-                        System.out.println("No valid Authorization header found for WebSocket connection");
+                        throw new org.springframework.messaging.MessageDeliveryException("No valid Authorization header found for WebSocket connection");
                     }
                 }
                 return message;

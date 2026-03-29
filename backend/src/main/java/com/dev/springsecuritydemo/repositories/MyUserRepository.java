@@ -1,4 +1,5 @@
-package com.dev.springsecuritydemo.models.myUser;
+package com.dev.springsecuritydemo.repositories;
+import com.dev.springsecuritydemo.entities.MyUser;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

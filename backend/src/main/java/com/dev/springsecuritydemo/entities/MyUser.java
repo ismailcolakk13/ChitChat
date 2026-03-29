@@ -1,6 +1,7 @@
-package com.dev.springsecuritydemo.models.myUser;
+package com.dev.springsecuritydemo.entities;
+import com.dev.springsecuritydemo.entities.Role;
 
-import com.dev.springsecuritydemo.models.chatRoom.ChatRoom;
+import com.dev.springsecuritydemo.entities.ChatRoom;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;

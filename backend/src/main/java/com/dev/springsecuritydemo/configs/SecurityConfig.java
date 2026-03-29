@@ -27,8 +27,7 @@ public class SecurityConfig {
     private String frontend_1;
     @Value("${url.frontend-2}")
     private String frontend_2;
-    @Value("${url.test}")
-    private String test;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,7 +36,7 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(List.of(frontend_1,frontend_2,test));
+                    config.setAllowedOrigins(List.of(frontend_1,frontend_2));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true);
