@@ -35,7 +35,7 @@
 
 ### Start New Chat
 
-![New Chat](screenshots/new-chat.png)
+![New Chat](screenshots/newchat.png)
 
 > Initiate a new conversation by entering a recipient's phone number or email address along with an opening message.
 
@@ -43,7 +43,7 @@
 
 ### Chat View
 
-![Chat View](screenshots/chat.png)
+![Chat View](screenshots/chatroom.png)
 
 > Real-time message exchange with a clean bubble-based UI — sent messages on the right, received on the left.
 
