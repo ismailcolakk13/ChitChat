@@ -10,7 +10,7 @@ function Dashboard() {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [newChatId, setNewChatId] = useState("");
+  const [newChatIdentifier, setNewChatIdentifier] = useState("");
   const [newChatMsg, setNewChatMsg] = useState("");
   const [sending, setSending] = useState(false);
   const inputRef = useRef(null);
@@ -41,15 +41,15 @@ function Dashboard() {
 
   const handleSendNewChat = async (e) => {
     e.preventDefault();
-    if (!newChatId) return;
+    if (!newChatIdentifier) return;
     setSending(true);
     try {
       const res = await api.post("/chat/send", {
-        receiverId: newChatId,
+        receiverIdentifier: newChatIdentifier,
         text: newChatMsg,
       });
       setShowModal(false);
-      setNewChatId("");
+      setNewChatIdentifier("");
       setNewChatMsg("");
       navigate(`/chat/${res.data.roomId}`);
     } catch (error) {
@@ -91,9 +91,9 @@ function Dashboard() {
                   ref={inputRef}
                   type="text"
                   className="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  placeholder="Alıcı ID"
-                  value={newChatId}
-                  onChange={(e) => setNewChatId(e.target.value)}
+                  placeholder="Alıcı Telefon veya Email"
+                  value={newChatIdentifier}
+                  onChange={(e) => setNewChatIdentifier(e.target.value)}
                   required
                   disabled={sending}
                 />
@@ -109,7 +109,7 @@ function Dashboard() {
                   <button
                     type="submit"
                     className="flex-1 bg-blue-500 text-white rounded-lg px-4 py-2 font-semibold hover:bg-blue-600 transition disabled:opacity-60"
-                    disabled={sending || !newChatId}
+                    disabled={sending || !newChatIdentifier}
                   >
                     {sending ? "Gönderiliyor..." : "Gönder"}
                   </button>
@@ -118,7 +118,7 @@ function Dashboard() {
                     className="flex-1 bg-gray-200 text-gray-700 rounded-lg px-4 py-2 font-semibold hover:bg-gray-300 transition"
                     onClick={() => {
                       setShowModal(false);
-                      setNewChatId("");
+                      setNewChatIdentifier("");
                       setNewChatMsg("");
                     }}
                     disabled={sending}

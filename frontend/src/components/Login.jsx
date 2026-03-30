@@ -57,8 +57,11 @@ function Login() {
           onSubmit={handleSubmit}
           className="flex flex-col gap-4"
         >
-          <h2 className="text-2xl font-bold text-blue-700 mb-2 text-center">
-            Hoşgeldiniz
+          <h2 className="text-3xl font-extrabold text-slate-800 mb-4 flex items-center justify-center gap-3">
+            <img src="/chat.png" alt="ChitChat" className="w-10 h-10 object-contain drop-shadow-sm" />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+              ChitChat
+            </span>
           </h2>
           <input
             type="text"

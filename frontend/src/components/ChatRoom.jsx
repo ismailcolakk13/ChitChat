@@ -20,16 +20,20 @@ function ChatRoom() {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (!roomId || !user?.id || stompClient.current) {
+    if (!roomId || !user?.username || stompClient.current) {
       // Skip the WebSocket setup if roomId/userId is missing or if already connected
       return;
     }
     const fetchOldMessages = async () => {
       setLoading(true);
       try {
+        console.log("mesajlar çekiliyor");
         const res = await api.get(`/chat/room/${roomId}`);
+        console.log("mesajlar çekildi");
         setMessages(res.data);
         console.log(res.data);
+      } catch (e) {
+        console.error("Mesajlar yüklenemedi:", e);
       } finally {
         setLoading(false);
       }
@@ -85,9 +89,9 @@ function ChatRoom() {
     ) {
       console.log("Mesaj gönderiliyor: ", state.guest);
       const chatMessage = {
-        senderId: user.id,
+        senderUsername: user.username,
         text: inputText,
-        receiverId: state?.guest?.id || "unknown",
+        receiverId: state?.guest?.username || "unknown",
       };
       stompClient.current.send(
         `/app/chat.send/${roomId}`,
@@ -160,7 +164,7 @@ function ChatRoom() {
             </div>
           ) : (
             messages.map((msg, idx) => {
-              const isOwn = msg.senderId === user.id;
+              const isOwn = msg.senderUsername === user.username;
               return (
                 <div
                   key={idx}
